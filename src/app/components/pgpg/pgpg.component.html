@@ -1,0 +1,91 @@
+<div class="container mt-5">
+  <h2>Generar Reporte</h2>
+  <form #reporteForm="ngForm" (ngSubmit)="onSubmit(reporteForm)">
+    <div class="mb-3">
+      <label for="ACADEMIC_YEAR" class="form-label">Año académico:</label>
+      <select class="form-select" id="ACADEMIC_YEAR" name="ACADEMIC_YEAR" ngModel required>
+        <option *ngFor="let year of academicYears" [value]="year">{{ year }}</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="ACADEMIC_TERM" class="form-label">Período académico:</label>
+      <select class="form-select" id="ACADEMIC_TERM" name="ACADEMIC_TERM" ngModel required>
+        <option *ngFor="let term of academicTerms" [value]="term">{{ term }}</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="ACADEMIC_SESSION" class="form-label">Sesión académica:</label>
+      <select class="form-select" id="ACADEMIC_SESSION" name="ACADEMIC_SESSION" ngModel required>
+        <option *ngFor="let session of academicSessions" [value]="session">{{ session }}</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="DEGREE" class="form-label">Nivel:</label>
+      <select class="form-select" id="DEGREE" name="DEGREE" ngModel required>
+        <option *ngFor="let niv of DEGREE" [value]="niv.id">{{ niv.descripcion }}</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="CURRICULUM" class="form-label">Curriculum:</label>
+      <select class="form-select" id="CURRICULUM" name="CURRICULUM" ngModel required>
+        <option *ngFor="let cur of CURRICULUM" [value]="cur.id">{{ cur.descripcion }}</option>
+      </select>
+    </div>
+
+    <input type="submit" value="Generar Reporte" class="btn btn-primary" [disabled]="reporteForm.invalid">
+  </form>
+
+  <!-- estudiantes.component.html -->
+  <div class="table-container text-center" *ngIf="mostrarDiv">
+    <p>No hay resultados</p>
+  </div>
+
+  <div class="table-container" *ngIf="students && students.length > 0">
+    <h2 class="text-center">Reporte de Estudiantes</h2>
+    <h4 class="text-center">Información detallada</h4>
+    <p *ngIf="students && students.length > 0" class="text-left">CAMPUS: {{ students[0].ACADEMIC_SESSION }} </p>
+    <p *ngIf="students && students.length > 0" class="text-left">NOMBRE DE LICENCIATURA O POSGRADO: Nivel: {{ students[0].NIVEL }} Curriculum: {{ students[0].CURRICULUM }}</p>  
+    <p *ngIf="students && students.length > 0" class="text-left">CICLO DE FINALIZACIÓN DE CREDITOS ACADÉMICOS: </p>
+    <p *ngIf="students && students.length > 0" class="text-left">CICLO DE INICIO DE LOS ESTUDIOS: </p>
+    <table id="tabla-estudiantes" class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>GENERO</th>
+          <th>GRUPO DE EDAD</th>
+          <th>1o.</th>
+          <th>2o.</th>
+          <th>3o.</th>
+          <th>4o.</th>
+          <th>5o.</th>
+          <th>6o.</th>
+          <th>7o.</th>
+          <th>8o.</th>
+          <th>9o.</th>
+          <th>10o.</th>
+          <th>11o.</th>
+          <th>PROMEDIO TOTAL CALIFICACIONES</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students">
+          <td>{{ student.LegalName }}</td>
+          <td>
+            {{ student.GENDER === 'F' ? '2' : (student.GENDER === 'M' ? '1' : '') }}
+          </td>        
+          <td>{{ student.Edad }}</td> 
+          <!-- Dentro de la fila de la tabla -->
+          <td *ngFor="let nivel of student.Niveles; let i = index">
+            {{ nivel.COMPLETED}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <button (click)="exportarATablaExcel()" class="btn btn-success" *ngIf="mostrarBoton">Exportar a Excel</button>
+  </div>

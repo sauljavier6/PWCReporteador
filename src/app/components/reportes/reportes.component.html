@@ -1,0 +1,16 @@
+<h1 class="mb-4 text-center">Generación de Reportes {{ categoriaSeleccionada }}</h1>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <!-- Ajusta el tamaño de la columna según sea necesario -->
+      <div *ngFor="let categoria of reportes">
+        <div *ngIf="categoria.categoria === categoriaSeleccionada">
+          <div class="list-group">
+            <!-- Enlaces a otras páginas -->
+            <a *ngFor="let enlace of categoria.enlaces" [routerLink]="[enlace.ruta]" class="list-group-item list-group-item-action">{{ enlace.nombre }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

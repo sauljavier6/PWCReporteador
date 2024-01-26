@@ -1,0 +1,21 @@
+/* styles.css */
+
+/* Centra los elementos horizontalmente */
+.center-text {
+    text-align: center;
+  }
+  
+  /* Aplica algún estilo para diferenciar los elementos */
+  .list-group-item {
+    background-color: #f0f0f0;
+    margin-bottom: 5px; /* Añade un pequeño espacio entre elementos para diferenciarlos visualmente */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  .disabled {
+    opacity: 0.5; /* Cambia la opacidad para indicar que está deshabilitado */
+    pointer-events: none; /* Evita que los eventos pasen a través del elemento */
+    /* Agrega otros estilos de deshabilitado según tus preferencias */
+  }
+  
